@@ -1,5 +1,6 @@
 import pymysql
 import pandas as pd
+
 import sys
 import os
 from dotenv import load_dotenv, find_dotenv
@@ -12,6 +13,7 @@ mydb = pymysql.connect(host=os.getenv("DB_SERVICE"),
     user=os.getenv('DB_USER'),
     passwd=os.getenv("DB_PASS"),
     db=os.getenv('DB_NAME'))
+
 cursor = mydb.cursor()
 
 
