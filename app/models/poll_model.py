@@ -5,7 +5,7 @@ class Poll(db.Model):
     __tablename__ = 'poll'
     poll_id = db.Column(db.Integer, unique=True, primary_key = True, autoincrement=True, nullable=False)
     owner = db.Column(db.Integer, db.ForeignKey('user.user_id'))
-    created_at = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.TIMESTAMP, nullable=False)
     status = db.Column(db.VARCHAR(255), nullable=False)
     shared_url = db.Column(db.VARCHAR(255), nullable=False)
     place = db.Column(db.VARCHAR(255), nullable=False)

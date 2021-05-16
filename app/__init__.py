@@ -19,9 +19,13 @@ def create_app():
 
     from . import models
 
-    from .controller.user_controller import UserList, UserPhone, UserAuth
-    api.add_resource(UserList, '/user')
-    api.add_resource(UserAuth, '/user/<email>')
-    api.add_resource(UserPhone, '/user/phone')
+    
+    from .controller.user_controller import UserLogin, UserRegister
+    api.add_resource(UserRegister, '/user_register')
+    api.add_resource(UserLogin, '/user_login')
+
+    from .controller.poll_controller import Poll, AddPoll
+    api.add_resource(Poll, '/poll/<poll_id>')
+    api.add_resource(AddPoll, '/poll')
 
     return app

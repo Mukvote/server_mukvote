@@ -1,28 +1,19 @@
 from flask import request, jsonify
 from flask_restful import Resource, abort
 
-from ..service.user_service import get_all_users, save_new_user, edit_user_phonenumber, is_new_user
+from ..service.user_service import save_new_user,get_logininfo
 
-class UserList(Resource):
-    def get(self):
-        output = get_all_users()
-        return jsonify({'data': output})
-
+class UserRegister(Resource):
     def post(self):
         data = request.get_json()
+        print(data)
+        print('hi')
         save_new_user(data)
 
-        return jsonify({'result': "Success"})
+        return jsonify({'result': "success"})
 
-class UserAuth(Resource):
-    def get(self, email):
-        return jsonify({'is_new': is_new_user(email)})
-    
-class UserPhone(Resource):
-    def put(self):
+class UserLogin(Resource):
+    def get(self):
         data = request.get_json()
-        edit_user_phonenumber(data)
-
-        return jsonify({'result': "Success"})
-
-    
+        output = get_logininfo(data)
+        return jsonify({'result':output})

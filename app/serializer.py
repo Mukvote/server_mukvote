@@ -17,7 +17,7 @@ class PollSchema(ModelSchema):
     class Meta:
         model = Poll
 
-poll_schema = PollSchema(many=True)
+poll_schema = PollSchema()
 
 class VoteSchema(ModelSchema):
     class Meta:
