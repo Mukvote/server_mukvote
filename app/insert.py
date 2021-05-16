@@ -1,8 +1,8 @@
 import pymysql
 import pandas as pd
-mydb = pymysql.connect(host='database-moa.czk1xhzbk1gf.us-east-2.rds.amazonaws.com',
+mydb = pymysql.connect(host=' ',
     user='admin',
-    passwd='~~!!moamoa',
+    passwd=' ',
     db='Mukvote')
 cursor = mydb.cursor()
 
