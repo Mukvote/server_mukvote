@@ -24,8 +24,8 @@ def create_app():
     api.add_resource(UserRegister, '/user_register')
     api.add_resource(UserLogin, '/user_login')
 
-    from .controller.poll_controller import Poll, AddPoll
-    api.add_resource(Poll, '/poll/<poll_id>')
+    from .controller.poll_controller import GetPoll, AddPoll
+    api.add_resource(GetPoll, '/poll/<poll_id>')
     api.add_resource(AddPoll, '/poll')
 
     return app

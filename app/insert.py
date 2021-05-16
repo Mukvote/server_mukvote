@@ -1,9 +1,17 @@
 import pymysql
 import pandas as pd
-mydb = pymysql.connect(host='database-moa.czk1xhzbk1gf.us-east-2.rds.amazonaws.com',
-    user='admin',
-    passwd='~~!!moamoa',
-    db='Mukvote')
+import sys
+import os
+from dotenv import load_dotenv, find_dotenv
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+load_dotenv(find_dotenv())
+
+mydb = pymysql.connect(host=os.getenv("DB_SERVICE"),
+    user=os.getenv('DB_USER'),
+    passwd=os.getenv("DB_PASS"),
+    db=os.getenv('DB_NAME'))
 cursor = mydb.cursor()
 
 
