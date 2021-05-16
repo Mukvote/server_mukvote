@@ -11,7 +11,7 @@ class UserSchema(ModelSchema):
     class Meta:
         model = User
 
-users_schema = UserSchema(many=True)
+users_schema = UserSchema()
 
 class PollSchema(ModelSchema):
     class Meta:
