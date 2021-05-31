@@ -34,6 +34,6 @@ def get_logininfo(data):
     is_same = bcrypt.checkpw(bytes_password, bytes_db_pw)
 
     if is_same:
-        return "success"
+        return check_user.user_id
     else:
-        return "fail"
+        return -1

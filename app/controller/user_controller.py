@@ -13,7 +13,7 @@ class UserRegister(Resource):
         return jsonify({'result': "success"})
 
 class UserLogin(Resource):
-    def get(self):
+    def post(self):
         data = request.get_json()
         output = get_logininfo(data)
         return jsonify({'result':output})
