@@ -8,9 +8,10 @@ class UserRegister(Resource):
         data = request.get_json()
         print(data)
         print('hi')
-        save_new_user(data)
+        output = save_new_user(data)
 
-        return jsonify({'result': "success"})
+        
+        return jsonify({'result': output})
 
 class UserLogin(Resource):
     def post(self):
