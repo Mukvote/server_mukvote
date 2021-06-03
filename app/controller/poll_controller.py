@@ -2,11 +2,11 @@ from flask import request, jsonify
 from flask_restful import Resource, abort
 import json
 
-from ..service.poll_service import get_poll, save_new_poll, save_category, update_url
+from ..service.poll_service import get_poll_list, save_new_poll, save_category, update_url
 
 class GetPoll(Resource):
     def get(self, poll_id):
-        output = get_poll(poll_id)
+        output = get_poll_list(poll_id)
         return jsonify({'poll_data': output})
 
 class AddPoll(Resource):

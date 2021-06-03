@@ -23,16 +23,16 @@ class VoteSchema(ModelSchema):
     class Meta:
         model = Vote
 
-vote_schema = VoteSchema(many=True)
+vote_schema = VoteSchema()
 
 class RestaurantSchema(ModelSchema):
     class Meta:
         model = Restaurant
 
-restaurant_schema = RestaurantSchema(many=True)
+restaurant_schema = RestaurantSchema()
 
 class CategorySchema(ModelSchema):
     class Meta:
         model = Category
 
-category_schema = CategorySchema(many=True)
+category_schema = CategorySchema()
