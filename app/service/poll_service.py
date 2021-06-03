@@ -21,21 +21,25 @@ def get_poll_list(id):
     data_list = dict()
     restaurant_list = dict()
     
+    ret = []
     #priority 높은거 순서대로 5개씩 카테고리별 장소 이름 리턴
     for i in range (len(categories)):
         restaurant_by_category = Restaurant.query.filter(and_(Restaurant.restaurant_place==place,
         Restaurant.restaurant_category==categories[i].category_name)).order_by(Restaurant.restaurant_priority.desc()).limit(5).all()
 
-        ret = []
+        # ret = []
         for result in restaurant_by_category:
             ret.append(restaurant_schema.dump(result))
         print(ret)
         
-        restaurant_list = {categories[i].category_name:ret}
-        print(restaurant_list)
-        data_list.update(restaurant_list)
+        # restaurant_list = {categories[i].category_name:ret}
+        # print(restaurant_list)
+        # data_list.update(restaurant_list)
 
-    return data_list
+    # return data_list
+    return ret
+
+
 
 def save_new_poll(data):
     try:
