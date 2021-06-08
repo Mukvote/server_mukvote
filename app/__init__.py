@@ -31,4 +31,8 @@ def create_app():
     api.add_resource(AddPoll, '/poll')
 
 
+    from .controller.vote_controller import AddVote, GetVoteResult
+    api.add_resource(AddVote, '/vote/<poll_id>/<user_id>')  
+    api.add_resource(GetVoteResult, '/vote/result/<poll_id>')
+
     return app
