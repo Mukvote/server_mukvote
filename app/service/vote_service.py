@@ -23,6 +23,7 @@ def get_vote_result(id):
 
     ret = []
     name_ret_list = []
+    all_data = 0
     #각 restaurant 별, unique 투표결과
     for i in range (len(data)):
         #true인거와
@@ -41,11 +42,11 @@ def get_vote_result(id):
     name_ret_list = sorted(name_ret_list, key = lambda x : -x[1])
     
     for name, result in name_ret_list:
-        vote_list = {name['restaurant_name']:result}
+        print(result)
+        vote_list = {"restaurant_name":name['restaurant_name'],"result":result,"number_of_participant":all_data}
+        print(vote_list)
         ret.append(vote_list)
         
-    participant_num = {"number_of_participant":all_data}
-    ret.append(participant_num)
     print(ret)
 
     return ret
@@ -53,16 +54,23 @@ def get_vote_result(id):
 def save_new_vote(data, poll_id, user_id):
     try:
         jsonArray = data.get('data')
+        print(jsonArray)
         for each_data in jsonArray:
+            print(each_data.get('restaurant_id'))
+            print(each_data.get('restaurant_vote'))
             new_vote = Vote(
                 poll_id = poll_id,
                 user_id = user_id,
                 restaurant_id = each_data.get('restaurant_id'),
                 restaurant_vote = each_data.get('restaurant_vote')
             )
+            print(new_vote)
             update_priority = Restaurant.query.filter(Restaurant.restaurant_id==each_data.get('restaurant_id')).first()
+            print(update_priority)
+            # update priority 확인 필요!!
+            # 72번째줄에 new_vote>> update_priority로 아마 바꿔야 할것 같음.
             update_priority.restaurant_priority += 1
-        db.session.add(new_vote)
+            db.session.add(new_vote)
         db.session.commit()
     except Exception as e:
         print(e)
