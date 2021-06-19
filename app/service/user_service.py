@@ -26,6 +26,7 @@ def save_new_user(data):
         db.session.commit()
     except Exception as e:
             print(e)
+            db.session.rollback()
             abort(500)
     return 1
 

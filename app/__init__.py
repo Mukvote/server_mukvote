@@ -26,13 +26,19 @@ def create_app():
     api.add_resource(UserRegister, '/user_register')
     api.add_resource(UserLogin, '/user_login')
 
-    from .controller.poll_controller import GetPoll, AddPoll
+    from .controller.poll_controller import GetPoll, AddPoll, DeletePoll
     api.add_resource(GetPoll, '/poll/<poll_id>')
     api.add_resource(AddPoll, '/poll')
+    api.add_resource(DeletePoll,'/poll/<poll_id>/<user_id>')
 
 
-    from .controller.vote_controller import AddVote, GetVoteResult
+    from .controller.vote_controller import AddVote, GetVoteResult, IsVote
     api.add_resource(AddVote, '/vote/<poll_id>/<user_id>')  
     api.add_resource(GetVoteResult, '/vote/result/<poll_id>')
+    api.add_resource(IsVote,'/check/<poll_id>/<user_id>')
+
+    from .controller.restaurant_controller import GetAllRestaurantByPlace, GetSearchResult
+    api.add_resource(GetAllRestaurantByPlace, '/restaurant/<place>')
+    api.add_resource(GetSearchResult, '/restaurant/search/<word>')
 
     return app

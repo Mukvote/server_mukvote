@@ -2,7 +2,7 @@ from flask import request, jsonify
 from flask_restful import Resource, abort
 import json
 
-from ..service.poll_service import get_poll_list, save_new_poll, save_category, update_url
+from ..service.poll_service import get_poll_list, save_new_poll, save_category, update_url, delete_poll
 
 class GetPoll(Resource):
     def get(self, poll_id):
@@ -23,3 +23,10 @@ class AddPoll(Resource):
 
         return jsonify({'poll_id': poll_id, 'shared_url': url})
 
+
+class DeletePoll(Resource):
+    def delete(self, poll_id, user_id):
+        print(poll_id)
+        print(user_id)
+        output = delete_poll(poll_id, user_id)
+        return jsonify({'delete_data': output})

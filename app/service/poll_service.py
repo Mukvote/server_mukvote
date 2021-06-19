@@ -15,6 +15,20 @@ from ..serializer import poll_schema, category_schema, restaurant_schema
 
 def get_poll_list(id):
     data = Poll.query.filter_by(poll_id=id).first()
+    if not data:
+        print("삭제됨")
+        temp = []
+        temp2 = dict()
+        temp2 = {"restaurant_id": -1, 
+            "restaurant_name": "-1",
+            "restaurant_place": "-1", 
+            "restaurant_category": "-1", 
+            "restaurant_priority":-1,
+            "order_count": -1}
+        temp.append(temp2)
+        print(temp)
+        return temp
+
     place = data.place
     categories = Category.query.filter((Category.category_id==id)).all()
 
@@ -27,7 +41,7 @@ def get_poll_list(id):
         restaurant_by_category = Restaurant.query.filter(and_(Restaurant.restaurant_place==place,
         Restaurant.restaurant_category==categories[i].category_name)).order_by(Restaurant.restaurant_priority.desc()).limit(5).all()
 
-        # ret = []
+        # c = []
         for result in restaurant_by_category:
             ret.append(restaurant_schema.dump(result))
         print(ret)
@@ -37,6 +51,9 @@ def get_poll_list(id):
         # data_list.update(restaurant_list)
 
     # return data_list
+    
+
+
     return ret
 
 
@@ -54,6 +71,7 @@ def save_new_poll(data):
         db.session.commit()
     except Exception as e:
         print(e)
+        db.session.rollback()
         abort(500)
     return new_poll
 
@@ -69,6 +87,7 @@ def save_category(data, poll_id):
             db.session.commit()
         except Exception as e:
             print(e)
+            db.session.rollback()
             abort(500)
 
 def update_url(id):
@@ -78,5 +97,25 @@ def update_url(id):
         db.session.commit()
     except Exception as e:
         print(e)
+        db.session.rollback()
         abort(500)
     return poll.shared_url
+
+def delete_poll(poll_id,user_id):
+    print(poll_id)
+    print(user_id)
+    delete_poll = Poll.query.filter(and_(Poll.poll_id==poll_id,
+        Poll.owner==user_id)).first()
+    #방장일 경우 투표 종료
+    if delete_poll:
+        print(delete_poll)
+        db.session.delete(delete_poll)
+        try:
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            abort(500, e)
+        return 1
+
+    return 0
